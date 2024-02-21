@@ -102,5 +102,9 @@ NextJS는 폴더를 사용하여 경로를 정의하는 파일시스템 기반 �
 about-us와 sales 두 디렉토리에만 page.tsx가 존재하고 company 디렉토리에는 page.tsx가 존재하지 않는다면
 
 `/about-us` 와 `/about-us/company/sales` 두 URL은 각각의 해당 디렉토리 경로에 존재하는 `page.tsx를 출력`하고      
-`/about-us/company` URL은 page.tsx파일이 없기 때문에 NextJS의 `기본 404 페이지를 출력`한다.
-즉, 위의 경우에서는 `/company는 단순히 중첩 URL 경로`로만 사용될 뿐이다.
+`/about-us/company` URL은 page.tsx파일이 없기 때문에 NextJS의 `기본 404 페이지를 출력`한다.     
+즉, 위의 경우에서는 `/company는 단순히 중첩 URL 경로`로만 사용될 뿐이다.      
+
+# 404 Not Found Routes (not-found.tsx)
+찾을 수 없는 파일은 경로 세그먼트 내에서 notFound 함수가 실행될 때 UI를 렌더링 할 때 사용된다.     
+즉, 해당 URL 경로에 `page.tsx`가 존재하지 않는다면 notFound함수가 실행되고 `not-found.tsx` 컴포넌트를 찾아 렌더링한다.     
