@@ -91,3 +91,16 @@ ReactJS는 개발자가 원하는 방식으로 개발했다면 NextJS는 NextJS�
 
 `npm run dev` 명령 실행시 Typescript를 자동으로 설치해준다.    
 또한 동일한 경로에 root layout역할을 해주는 layout.tsx 컴포넌트 파일이 생성된다.
+
+# NextJS 라우팅 (파일시스템 기반)
+NextJS는 폴더를 사용하여 경로를 정의하는 파일시스템 기반 라우터를 사용한다.      
+각 폴더는 URL 세그먼트에 매핑되는 경로 세그먼트를 나타낸다.    
+중첩된 경로를 만들기 위해서는 폴더를 서로 중첩하면 된다.    
+단 라우팅할 경로에는 `page.tsx`라는 출력할 내용이 선언된 컴포넌트가 존재해야한다.
+만약 중첩경로에 page.tsx파일이 존재하지 않는다면, 단순히 중첩 경로로서만 인정된다.
+예를들어 /about-us/company/sales 경로가 존재하고
+about-us와 sales 두 디렉토리에만 page.tsx가 존재하고 company 디렉토리에는 page.tsx가 존재하지 않는다면
+
+`/about-us` 와 `/about-us/company/sales` 두 URL은 각각의 해당 디렉토리 경로에 존재하는 `page.tsx를 출력`하고      
+`/about-us/company` URL은 page.tsx파일이 없기 때문에 NextJS의 `기본 404 페이지를 출력`한다.
+즉, 위의 경우에서는 `/company는 단순히 중첩 URL 경로`로만 사용될 뿐이다.
