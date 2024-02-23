@@ -99,6 +99,36 @@ NextJS가 우선 Server에서 HTML에서 Rendering한다는 것이다.
 백엔드서버에서 모든 컴포넌트를 render한 후 해당 HTML을 브라우저 request에 대한 response로 줄것이다.     
 이는 적어도 최초 Application의 UI빌드에서는 Javascript에 의존하지 않을것이다.     
 
+### Hydration
+Hydration은 단순 HTML을 React Application으로 초기화하는 작업이다.
+예를들어 sources의 Javascript를 비활성화 한 뒤 anchor태그에 감싼 텍스트를 클릭한다면,		
+hard refresh 방식으로 페이지가 새로고침되어 전환된다.		
+그러나, Javascript를 활성화 한다면 새로고침 없이 아주 빠르게 출력 내용이 바뀐다.		
+이것을 Hydration이라고 부른다.		
+
+React가 hydrated되면 anchors의 묶음이였다가 React Component로 변환된다.		
+페이지 전체를 reload하지 않고 빠르게 navigate 할 수 있게 된다.		
+Link component는 CSR Navigation을 수행하고 있다.		
+이로인해 동작속도가 매우 빠르며 새로고침되지 않아 보인다.		
+페이지에 도달하면 UI를 가지고 있는 dummyHtml에 NextJS 프레임워크에 의해 React가 로드되고 Components가 로드되는 등, 		
+모든것이 초기화 됨으로써 Application이 Interactive한 React App이 된다.		
+특정 URL로 요청이 들어오면 React Comonent가 아닌 dummy HTML로 사용자에게 출력함과 동시에, NextJS가 아주 빠른 속도로 React가 초기화되는 것이다.     
+
+state를 사용한다고 가정했을 때, Hydration이 미처 적용되지 않았다면, state조작이 불가능해진다.     
+특정 URL로 요청으로 출력된 dummy HTML 버튼을 클릭했을 때, NextJS 프레임워크에 의해 Hydration된 후에 작동하게 된다.     
+
+### "use client"
+client에서 hydrate, interactive하게 만들어질 components는 오직 use client 지시어를 맨 위에 갖고 있는 component들 뿐이다.     
+use client는 프레임워크에 hydrate되어야 함을 명시하는것이다.     
+use client는 client에서 랜더링 되는것이 아닌 server(backend)에서 랜더링 된 후 client(frontend)에서 hydrate됨을 의미한다.     
+state 혹은 eventListner 혹은 navigation등 React의 interactive한 기능을 적용할때, use client라는 키워드를 붙힘으로써 프레임워크가 
+자바스크립트를 로딩하는 순간 React component로 초기화 시켜준다.     
+
+use client가 없다면, hydrate될 필요가 없으므로 hydrate된 React component가 아닌 Server component가 된다.     
+즉, 필요한 부분만 "use client" 키워드를 선언하여 hydrate를 적용히고, client에 딱 한번만 render되고 다시는 render될 일이 없는
+hydrate작업이 필요하지 않은 컴포넌트의 경우 사용자가 Javascript를 더 적게 다운받아도 되는것이다.     
+이로인해 페이지 로딩속도가 빨라진다.     
+
 # *NEXTJS 수동 설치* 
  
  - ### 디렉토리 생성 ( OS CMD)
