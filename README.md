@@ -49,6 +49,56 @@ NextJS 프로젝트를 실행하면 NextJS가 개발자의 코드를 호출할�
 ReactJS는 개발자가 원하는 방식으로 개발했다면 NextJS는 NextJS가 제공하는 규칙을 준수하여 개발해야한다.      
 (코드를 올바른 위치에 배치하고, 파일을 올바른 경로, 올바른 함수명, 올바른 모양의 export 등..)
 
+### `ReactJS *`
+
+rednering 이란 react 코드를 브라우저가 이해할 수 있는 html로 바꾸는것이다.     
+create-react-app을 사용해 react만으로 application을 생성는 것은 client side application이다.     
+React는 사용자 브라우저인 client단에서 모든 rendering 작업을 수행해야 한다.     
+client가 사용자 브라우저에 UI를 구축해야 하는것이다.     
+ 
+- 단점 1.     
+페이지 소스 보기 에서는 보이지않던 코드들이 개발자도구의 요소탭을 통해서는 보인다.     
+이는 자바스크립트에 의해 Document에 추가된것이다.     
+즉, 유저가 해당 페이지에 도착한 시점에는 빈 화면이다.     
+브라우저가 모든 Javascript파일을 다운로드하고 실행한 후에야 화면에 보여진다.     
+해당 JS파일 어딘가에 개발자가 작성한 코드가있을것이고, React.js, React-Dom 코드도 있을것이다.     
+브라우저가 해당 파일들을 모두 실행시키고 나서야 페이지에 랜더링된다.     
+새로고침을 하는 순간, 페이지에 아무것도 없는 순간에 직면하고 그 순간이 지나면 내용이 나타날것이다.     
+그 순간이라 함은 React를 실행시키고 UI를 화면에 올리기 위해 모든 Javascript파일을 다운로드하고 실행시키는 데에 걸리는 시간이다.     
+브라우저가 보여줄게 없는 순간인것이다.     
+브라우저 개발자도구에서 javascript를 비활성화 한다면 Application을 실행조자 시킬 수 없다.     
+
+이것이 바로 client side rendering이다.     
+
+예를들어 사용자가 데이터 연결 상태가 안좋은 스마트폰으로 연결한다고 가정해보면, 모든 Javascript를 다운받아야 하고     
+모든 파일이 다운로드 완료될 때까지 기다려야 한다.     
+따라서 아무 UI 없던 순간의 화면을 훨씬 더 오래 직면하게 된다.     
+
+ - 단점 2.      
+SEO 검색 엔진 최적화     
+웹사이트가 Google에 노출되기 바란다면, 빈 페이지를 보여주지 않는것이 좋다.     
+가끔 Google이 내가 개발한 웹 페이지의 Javascript를 실행시키기도 하지만 
+그런 위험을 감수하는 것 보다는 HTML에 웹사이트의 유용한 실제 데이터가 들어있는 편이 더 나을것이다.     
+아마 다른 검색엔진들은 페이지에서 Javascript를 실행시키지 않을것이다.     
+따라서 검색엔진이 보는 나의 웹 사이트는 비어있게 된다.     
+
+nextJS나 Gatsby, Remix 뭐든 간 어떠한 프레임워크도 사용하지 않는고 순수한 CRA로 설치해 개발한다면 Client Side Render 방식이 된다.     
+Client Side Rendering은 모든 Rendering 즉, 모든 UI 빌드 작업이 모두 Client측에서 일어나는 것이다.     
+Client는 Javascript를 로드하고 그 후에 Javascript가 UI를 빌드한다.     
+
+### `NextJS *`
+반면 NextJS 에서 UI를 빌드하게되면 자동으로 기본값인 Server Side Rendering이 된다.     
+CRA와 마찬가지로 페이지 소스 보기를 확인하면 페이지의 내용들이 모두 실제로 브라우저 코드에 있는것을 확인할 수 있다.     
+이는 브라우저가 이미 화면에 표시할 HTML을 갖고 있기 때문에 Javascript가 로드될 때까지 기다릴 필요가 없다는 것을 의미한다.     
+개발자도구 sources탭에서 Javascript를 비활성화 하더라도 제대로 출력이 된다.     
+HTML을 보여주는데는 Javascript가 필요없기 때문이다.     
+
+꼭 기억해야 할 것은 NextJS Application의 모든 Page 안의 모든 Component들은
+NextJS가 우선 Server에서 HTML에서 Rendering한다는 것이다.     
+ 
+백엔드서버에서 모든 컴포넌트를 render한 후 해당 HTML을 브라우저 request에 대한 response로 줄것이다.     
+이는 적어도 최초 Application의 UI빌드에서는 Javascript에 의존하지 않을것이다.     
+
 # *NEXTJS 수동 설치* 
  
  - ### 디렉토리 생성 ( OS CMD)
@@ -108,3 +158,28 @@ about-us와 sales 두 디렉토리에만 page.tsx가 존재하고 company 디렉
 # 404 Not Found Routes (not-found.tsx)
 찾을 수 없는 파일은 경로 세그먼트 내에서 notFound 함수가 실행될 때 UI를 렌더링 할 때 사용된다.     
 즉, 해당 URL 경로에 `page.tsx`가 존재하지 않는다면 notFound함수가 실행되고 `not-found.tsx` 컴포넌트를 찾아 렌더링한다.     
+
+# usePathname
+
+현재 URL의 pathname을 읽을 수 있게 해주는 클라이언트 컴포넌트 훅이다.
+해당 훅을 사용하는 컴포넌트의 최 상단에는 "use client" 라는 문자열을 입력해 줘야 한다.
+```ts
+import Navigation from "../components/navigation";
+
+export default function Home() {
+  return <div>
+    <Navigation />
+    <h1>Hello!</h1>
+  </div>
+}
+
+```
+```ts
+"use client" // import문 보다도 더 즉, 최최최상단에 입력해 줘야 함...
+import { usePathname } from "next/navigation";
+
+export default function Navigation() {
+   const path = usePathname();
+   console.log(path)
+}
+```
