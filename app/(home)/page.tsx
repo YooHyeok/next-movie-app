@@ -1,7 +1,9 @@
+import Link from "next/link"
+
 export const metadata = {
   title: "Home",
 }
-const URL = "https://nomad-movies.nomadcoders.workers.dev/movies"
+export const API_URL = "https://nomad-movies.nomadcoders.workers.dev/movies"
 
 /**
  * Servier Side Fetching
@@ -13,15 +15,15 @@ const URL = "https://nomad-movies.nomadcoders.workers.dev/movies"
  * @returns 
  */
 async function getMovies() {
-  await new Promise((resolve)=> setTimeout(resolve, 10000))
+  // await new Promise((resolve)=> setTimeout(resolve, 1000))
   const response = await fetch(URL)
-  const json = await response.json()
+  const json = response.json()
   return json;
 }
 
 export default async function HomePage() { //async: await되는동안 loading 컴포넌트 출력을 위한 서버컴포넌트 동기처리
   const movies = await getMovies();
   return <div>
-    {JSON.stringify(movies)}
+    {movies.map(movie=><li key={movie.id}><Link href={`/movies/${movie.id}`}>{movie.title}</Link></li>)}
   </div>
 }
