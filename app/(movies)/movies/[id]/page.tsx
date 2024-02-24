@@ -1,4 +1,7 @@
+import { Suspense } from "react"
 import { API_URL } from "../../../(home)/page"
+import MovieInfo from "../../../../components/movie-info"
+import MovieVideos from "../../../../components/movie-videos"
 
 async function getMovie(id: string) {
   console.log(`Fetching movie: ${Date.now()}`)
@@ -28,12 +31,19 @@ async function getVideos(id: string) {
  * @returns 
  */
 export default async function MovieDetail({params:{id}}: {params:{id:string}}) {
-  console.log("================================")
-  console.log("start fetching")
-  const movie = await getMovie(id)
-  const videos = await getVideos(id)
+  /* const movie = await getMovie(id)
+  const videos = await getVideos(id) */
   // const [movie, videos] = await Promise.all([getMovie(id), getVideos(id)])
-  console.log("end fetching")
+  // return <h1>Movie: {movie.title}</h1>
 
-  return <h1>Movie: {movie.title}</h1>
+  return <div>
+    {/* Suspense 컴포넌트는 fallback이라는 prop이 있고 
+    component가 await되는 동안 표시할 메시지를 render 할 수 있게 해준다. */}
+    <Suspense fallback={<h1>Loading movie videos</h1>}>
+      <MovieVideos id={id}/>
+    </Suspense>
+    <Suspense fallback={<h1>Loading movie info</h1>}>
+      <MovieInfo id={id}/>
+    </Suspense>
+  </div>
 }
