@@ -57,34 +57,34 @@ React는 사용자 브라우저인 client단에서 모든 rendering 작업을 �
 client가 사용자 브라우저에 UI를 구축해야 하는것이다.     
  
 - 단점 1.     
-페이지 소스 보기 에서는 보이지않던 코드들이 개발자도구의 요소탭을 통해서는 보인다.     
-이는 자바스크립트에 의해 Document에 추가된것이다.     
-즉, 유저가 해당 페이지에 도착한 시점에는 빈 화면이다.     
-브라우저가 모든 Javascript파일을 다운로드하고 실행한 후에야 화면에 보여진다.     
-해당 JS파일 어딘가에 개발자가 작성한 코드가있을것이고, React.js, React-Dom 코드도 있을것이다.     
-브라우저가 해당 파일들을 모두 실행시키고 나서야 페이지에 랜더링된다.     
-새로고침을 하는 순간, 페이지에 아무것도 없는 순간에 직면하고 그 순간이 지나면 내용이 나타날것이다.     
-그 순간이라 함은 React를 실행시키고 UI를 화면에 올리기 위해 모든 Javascript파일을 다운로드하고 실행시키는 데에 걸리는 시간이다.     
-브라우저가 보여줄게 없는 순간인것이다.     
-브라우저 개발자도구에서 javascript를 비활성화 한다면 Application을 실행조자 시킬 수 없다.     
+   페이지 소스 보기 에서는 보이지않던 코드들이 개발자도구의 요소탭을 통해서는 보인다.     
+   이는 자바스크립트에 의해 Document에 추가된것이다.     
+   즉, 유저가 해당 페이지에 도착한 시점에는 빈 화면이다.     
+   브라우저가 모든 Javascript파일을 다운로드하고 실행한 후에야 화면에 보여진다.     
+   해당 JS파일 어딘가에 개발자가 작성한 코드가있을것이고, React.js, React-Dom 코드도 있을것이다.     
+   브라우저가 해당 파일들을 모두 실행시키고 나서야 페이지에 랜더링된다.     
+   새로고침을 하는 순간, 페이지에 아무것도 없는 순간에 직면하고 그 순간이 지나면 내용이 나타날것이다.     
+   그 순간이라 함은 React를 실행시키고 UI를 화면에 올리기 위해 모든 Javascript파일을 다운로드하고 실행시키는 데에 걸리는 시간이다.     
+   브라우저가 보여줄게 없는 순간인것이다.     
+   브라우저 개발자도구에서 javascript를 비활성화 한다면 Application을 실행조자 시킬 수 없다.     
 
-이것이 바로 client side rendering이다.     
+   이것이 바로 client side rendering이다.     
 
-예를들어 사용자가 데이터 연결 상태가 안좋은 스마트폰으로 연결한다고 가정해보면, 모든 Javascript를 다운받아야 하고     
-모든 파일이 다운로드 완료될 때까지 기다려야 한다.     
-따라서 아무 UI 없던 순간의 화면을 훨씬 더 오래 직면하게 된다.     
+   예를들어 사용자가 데이터 연결 상태가 안좋은 스마트폰으로 연결한다고 가정해보면, 모든 Javascript를 다운받아야 하고     
+   모든 파일이 다운로드 완료될 때까지 기다려야 한다.     
+   따라서 아무 UI 없던 순간의 화면을 훨씬 더 오래 직면하게 된다.     
 
  - 단점 2.      
-SEO 검색 엔진 최적화     
-웹사이트가 Google에 노출되기 바란다면, 빈 페이지를 보여주지 않는것이 좋다.     
-가끔 Google이 내가 개발한 웹 페이지의 Javascript를 실행시키기도 하지만 
-그런 위험을 감수하는 것 보다는 HTML에 웹사이트의 유용한 실제 데이터가 들어있는 편이 더 나을것이다.     
-아마 다른 검색엔진들은 페이지에서 Javascript를 실행시키지 않을것이다.     
-따라서 검색엔진이 보는 나의 웹 사이트는 비어있게 된다.     
+   SEO 검색 엔진 최적화     
+   웹사이트가 Google에 노출되기 바란다면, 빈 페이지를 보여주지 않는것이 좋다.     
+   가끔 Google이 내가 개발한 웹 페이지의 Javascript를 실행시키기도 하지만 
+   그런 위험을 감수하는 것 보다는 HTML에 웹사이트의 유용한 실제 데이터가 들어있는 편이 더 나을것이다.     
+   아마 다른 검색엔진들은 페이지에서 Javascript를 실행시키지 않을것이다.     
+   따라서 검색엔진이 보는 나의 웹 사이트는 비어있게 된다.     
 
-nextJS나 Gatsby, Remix 뭐든 간 어떠한 프레임워크도 사용하지 않는고 순수한 CRA로 설치해 개발한다면 Client Side Render 방식이 된다.     
-Client Side Rendering은 모든 Rendering 즉, 모든 UI 빌드 작업이 모두 Client측에서 일어나는 것이다.     
-Client는 Javascript를 로드하고 그 후에 Javascript가 UI를 빌드한다.     
+   nextJS나 Gatsby, Remix 뭐든 간 어떠한 프레임워크도 사용하지 않는고 순수한 CRA로 설치해 개발한다면 Client Side Render 방식이 된다.     
+   Client Side Rendering은 모든 Rendering 즉, 모든 UI 빌드 작업이 모두 Client측에서 일어나는 것이다.     
+   Client는 Javascript를 로드하고 그 후에 Javascript가 UI를 빌드한다.     
 
 ### `NextJS *`
 반면 NextJS 에서 UI를 빌드하게되면 자동으로 기본값인 Server Side Rendering이 된다.     
@@ -128,6 +128,37 @@ use client가 없다면, hydrate될 필요가 없으므로 hydrate된 React comp
 즉, 필요한 부분만 "use client" 키워드를 선언하여 hydrate를 적용히고, client에 딱 한번만 render되고 다시는 render될 일이 없는
 hydrate작업이 필요하지 않은 컴포넌트의 경우 사용자가 Javascript를 더 적게 다운받아도 되는것이다.     
 이로인해 페이지 로딩속도가 빨라진다.     
+
+# *Pareller Fetch - Promise.all()*
+```ts
+async function getMovie(id: string) {
+   await new Promise(resolve=> setTimeout(resolve, 5000))
+   const response = await fetch(`${API_URL}/${id}`)
+   return response.json()
+}
+
+async function getVideos(id: string) {
+   await new Promise(resolve=> setTimeout(resolve, 5000))
+   const response = await fetch(`${API_URL}/${id}/videos`)
+   return response.json()
+}
+```
+5초의 대기시간을 갖는 두개의 fetch함수이다.
+해당 함수를 따로 호출하게되면, getMovie에 대한 호출이 5초동안 이루어지고 작업이 종료된 후
+getVideos가 호출되어 5초동안 이루어진 뒤 작업이 종료된다.
+
+Promise.all()함수를 사용하면 이것을 병렬로 처리할 수 있다.
+
+```js
+  const [movie, videos] = await Promise.all([getMovie(id), getVideos(id)])
+```
+10초가 걸리는 작업이 5초만에 처리된다.
+
+하지만 둘중 하나라도 실패했을때 특정 성공여부를 떠나 실패를 즉시 반환한다.
+
+
+
+
 
 # *NEXTJS 수동 설치* 
  
