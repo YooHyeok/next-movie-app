@@ -13,8 +13,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
+      {`<RootLayout>`}
         <Navigation/>
         {children}
+      {`<RootLayout/>`}
       </body>
     </html>
   )
