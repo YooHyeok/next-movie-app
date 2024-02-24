@@ -13,13 +13,13 @@ const URL = "https://nomad-movies.nomadcoders.workers.dev/movies"
  * @returns 
  */
 async function getMovies() {
-  await new Promise((resolve)=> setTimeout(resolve, 1000))
+  await new Promise((resolve)=> setTimeout(resolve, 10000))
   const response = await fetch(URL)
   const json = await response.json()
   return json;
 }
 
-export default async function HomePage() {
+export default async function HomePage() { //async: await되는동안 loading 컴포넌트 출력을 위한 서버컴포넌트 동기처리
   const movies = await getMovies();
   return <div>
     {JSON.stringify(movies)}
