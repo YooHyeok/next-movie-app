@@ -1,7 +1,8 @@
-import { Suspense } from "react"
+import { Suspense, lazy } from "react"
 import { API_URL } from "../../../(home)/page"
-import MovieInfo from "../../../../components/movie-info"
+// import MovieInfo from "../../../../components/movie-info"
 import MovieVideos from "../../../../components/movie-videos"
+const MovieInfo = lazy(() => import('../../../../components/movie-info'));
 
 async function getMovie(id: string) {
   console.log(`Fetching movie: ${Date.now()}`)
@@ -39,9 +40,11 @@ export default async function MovieDetail({params:{id}}: {params:{id:string}}) {
   return <div>
     {/* Suspense 컴포넌트는 fallback이라는 prop이 있고 
     component가 await되는 동안 표시할 메시지를 render 할 수 있게 해준다. */}
+    <h3>Movie detail page</h3>
     <Suspense fallback={<h1>Loading movie videos</h1>}>
       <MovieVideos id={id}/>
     </Suspense>
+    <h3>Videos</h3>
     <Suspense fallback={<h1>Loading movie info</h1>}>
       <MovieInfo id={id}/>
     </Suspense>
