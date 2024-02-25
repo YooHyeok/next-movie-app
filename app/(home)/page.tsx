@@ -1,4 +1,6 @@
 import Link from "next/link"
+import Movie from "../../components/movie"
+import styles from "../../styles/home.module.css"
 
 export const metadata = {
   title: "Home",
@@ -20,13 +22,17 @@ async function getMovies() {
   const json = response.json()
   return json;
 }
-interface IMovie {
+export interface IMovie {
   id: string;
   title: string;
+  poster_path: string;
 }
 export default async function HomePage() { //async: await되는동안 loading 컴포넌트 출력을 위한 서버컴포넌트 동기처리
   const movies = await getMovies();
-  return <div>
-    {movies.map((movie:IMovie) =><li key={movie.id}><Link href={`/movies/${movie.id}`}>{movie.title}</Link></li>)}
+  return <div className={styles.container}>
+    {movies.map((movie:IMovie) =>
+    // <li key={movie.id}><Link href={`/movies/${movie.id}`}>{movie.title}</Link></li>
+      <Movie key={movie.id} {...movie}/>
+    )}
   </div>
 }
