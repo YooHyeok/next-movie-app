@@ -4,9 +4,7 @@ export default function AboutUsLayout({
   children: React.ReactNode
 }) {
   return (<div>
-        {`<AboutUsLayout/>`}
         {children}
-        {`<AboutUsLayout/>`}
   </div>
   )
 }

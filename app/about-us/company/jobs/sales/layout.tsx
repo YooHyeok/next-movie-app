@@ -4,9 +4,7 @@ export default function SalesLayout({
   children: React.ReactNode
 }) {
   return (<div>
-        {`<SalesLayout>`}
         {children}
-        {`<SalesLayout/>`}
   </div>
   )
 }
