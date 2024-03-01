@@ -200,6 +200,180 @@ about-us와 sales 두 디렉토리에만 page.tsx가 존재하고 company 디렉
 
 <br/>
 
+# *Metadata*
+
+페이지의 head부분에 들어갈 정보이다.    
+주로 title, meta description등에 해당한다.    
+Create React App 에서는 react-helmet의 `<Helmet>` 컴포넌트를 이용했으며
+NextJS는 next/head의 `<Head>` 컴포넌트를 이용해서 사용해왔다.   
+페이지나 레이아웃에서만 메타데이터를 내보낼수 있고, 컴포넌트에서는 내보낼 수 없다.    
+또한 서버 컴포넌트에서만 있을 수 있고 client컴포넌트에서는 불가능하다.    
+
+```ts
+import { Metadata } from "next"
+
+export const metadata: Metadata = {
+  title: "title | Next 14"
+  description: "Meta Description!"
+}
+```
+
+위와 같은 코드 형태로 구성할 수 있다.
+
+```html
+<head>
+<title>title | Next 14</title>
+<meta name="description" content="Meta Description!">
+</head>
+```
+	
+여기서 description은 여러 페이지에서 공유가 가능하다.   
+장점으로는 레이아웃이 중첩되는 방식과 마찬가지로 메타데이터도 중첩이 가능하지만, 실제로는 중첩되지않고 병합된다.   
+만약 루트 layout에 description만을 적용하고 루트 page.tsx에 title을 적용했다면 둘은 병합된다.   
+```ts
+import { Metadata } from "next"
+
+export const metadata: Metadata = {
+  description: 'Root Layout Metadata!!',
+}
+
+export default function RootLayout({children,}: {children: React.ReactNode}) {
+  return (
+  <html lang="en">
+    <body>
+    {children}
+    </body>
+  </html>
+  )
+}
+```
+```ts
+import { Metadata } from "next"
+
+export const metadata: Metadata = {
+  title: 'Root Page! | Next 14'
+}
+
+export default function Page() {
+  return (
+  <div>
+    <h1>Root Page!</h1>
+  </div>
+  )
+}
+```
+아래와 같은 HTML이 구성된다.
+```html
+<head>
+  <title>Root Page! | Next 14</title>
+  <meta name="description" content="Root Layout Metadata!!">
+</head>
+```
+	
+만약 하위 라우팅 /meta/page.tsx 에 Metadata로 title을 적용한다면 아래와 같이 병합된다.    
+ 
+ ### /meta/page.tsx
+  ```ts
+  import { Metadata } from "next"
+
+  export const metadata: Metadata = {
+    title: 'Meta Page! | Next 14'
+  }
+
+  export default function Page() {
+    return (
+    <div>
+      <h1>Meta Page!</h1>
+    </div>
+    )
+  }
+  ```
+  아래와 같은 HTML이 구성된다.
+  ```html
+  <head>
+    <title>Meta Page! | Next 14</title>
+    <meta name="description" content="Root Layout Metadata!!">
+  </head>
+  ```
+	
+    /meta/page.tsx와 root의 layout.tsx의 metadata 객체가 병합된것이다.
+  
+<br/> 
+
+## 템플릿 Metadata   
+title을 예로들어 페이지별로 공통적으로 반복되는 문자가 들어간다면 아래와 같이 object타입으로 template를 지정할 수 있다.
+	
+```ts
+import { Metadata } from "next"
+
+export const metadata: Metadata = {
+  title: {
+  template: "%s | Next 14",
+  default: "Next 14"
+  },
+  description: 'Root Layout Metadata!!',
+}
+```
+	
+- page.tsx(Root) 
+	```ts
+	import { Metadata } from "next"
+
+	export const metadata: Metadata = {
+	  title: 'Root Page! | Next 14'
+	}
+
+	export default function Page() {
+	  return (
+		<div>
+		  <h1>Root Page!</h1>
+		</div>
+	  )
+	}
+	```
+	
+- /meta/page.tsx
+	```ts
+	import { Metadata } from "next"
+
+	export const metadata: Metadata = {
+	  title: 'Meta Page!'
+	}
+
+	export default function Page() {
+	  return (
+		<div>
+		  <h1>Meta Page!</h1>
+		</div>
+	  )
+	}
+	```
+### 아래와 같은 결과로 렌더링된다!
+- page.tsx(Root) 
+  ```html
+  <head>
+    <title>Root Page! | Next 14</title>
+    <meta name="description" content="Root Layout Metadata!!">
+  <head>
+  ```
+- /meta/page.tsx	
+  ```html
+  <head>
+    <title>Meta Page! | Next 14</title>
+    <meta name="description" content="Root Layout Metadata!!">
+  <head>
+  ```
+	
+	메타데이터가 없는 예를들어 404 페이지라면 default가 출력된다.
+	```html
+	<head>
+		<title>Next 14</title>
+		<meta name="description" content="Root Layout Metadata!!">
+	<head>
+	```
+<br/>
+
+
 # *404 Not Found Routes (not-found.tsx)*
 찾을 수 없는 파일은 경로 세그먼트 내에서 notFound 함수가 실행될 때 UI를 렌더링 할 때 사용된다.     
 즉, 해당 URL 경로에 `page.tsx`가 존재하지 않는다면 notFound함수가 실행되고 `not-found.tsx` 컴포넌트를 찾아 렌더링한다.     
