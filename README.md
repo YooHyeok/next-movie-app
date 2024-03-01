@@ -544,3 +544,19 @@ export default function ErrorOMG() {
   return <h1>lol something broke....</h1>
 }
 ```
+
+# *Dynamic Metadata - generateMetadata()*
+metadata를 동적으로 변경할 수 있게 도와주는 함수이다.
+프레임워크가 generateMetadata()라는 이름의 함수를 호출한다.
+적용할 서버 컴포넌트에 선언하여 사용하므로 해당 컴포넌트가 받는 파라미터를 동일하게 받을 수 있다.
+
+```ts
+export async function generateMetadata({params:{id}}: Iparams) {
+  const movie = await getMovie(id);
+  return {title: movie.title}
+}
+export default async function MovieDetail({params:{id}}: Iparams) {
+  return /* 생략 */
+}
+```
+프레임워크의 기능이므로 export해줘야 프레임워크가 해당 함수를 호출할 수 있게 된다.
