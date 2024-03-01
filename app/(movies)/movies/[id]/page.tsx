@@ -1,10 +1,10 @@
 import { Suspense, lazy } from "react"
 import { API_URL } from "../../../(home)/page"
-// import MovieInfo from "../../../../components/movie-info"
-import MovieVideos from "../../../../components/movie-videos"
-const MovieInfo = lazy(() => import('../../../../components/movie-info'));
 
-async function getMovie(id: string) {
+const MovieVideos = lazy(() => import('../../../../components/movie-videos'));
+import MovieInfo, {getMovie} from "../../../../components/movie-info"
+
+/* async function getMovie(id: string) {
   console.log(`Fetching movie: ${Date.now()}`)
   await new Promise((resolve)=> setTimeout(resolve, 5000))
   const response = await fetch(`${API_URL}/${id}`)
@@ -15,6 +15,21 @@ async function getVideos(id: string) {
   await new Promise((resolve)=> setTimeout(resolve, 5000))
   const response = await fetch(`${API_URL}/${id}/videos`)
   return response.json()
+} */
+
+interface Iparams {
+  params:{id:string};
+}
+
+/**
+ * getMovie는 현재 서버 컴포넌트의 자식 컴포넌트인 MovieInfo 에서 호출되지만,
+ * 이곳 page.tsx에서 호출되고 나면 해당 url에 대해 캐싱처리 되므로 최적화 된다.
+ * @param param0 
+ * @returns 
+ */
+export async function generateMetadata({params:{id}}: Iparams) {
+  const movie = await getMovie(id);
+  return {title: movie.title}
 }
 
 /**
@@ -31,7 +46,7 @@ async function getVideos(id: string) {
  * @param param0 
  * @returns 
  */
-export default async function MovieDetail({params:{id}}: {params:{id:string}}) {
+export default async function MovieDetail({params:{id}}: Iparams) {
   /* const movie = await getMovie(id)
   const videos = await getVideos(id) */
   // const [movie, videos] = await Promise.all([getMovie(id), getVideos(id)])
@@ -40,13 +55,11 @@ export default async function MovieDetail({params:{id}}: {params:{id:string}}) {
   return <div>
     {/* Suspense 컴포넌트는 fallback이라는 prop이 있고 
     component가 await되는 동안 표시할 메시지를 render 할 수 있게 해준다. */}
-    <h3>Movie detail page</h3>
-    <Suspense fallback={<h1>Loading movie videos</h1>}>
-      <MovieVideos id={id}/>
-    </Suspense>
-    <h3>Videos</h3>
     <Suspense fallback={<h1>Loading movie info</h1>}>
       <MovieInfo id={id}/>
+    </Suspense>
+    <Suspense fallback={<h1>Loading movie videos</h1>}>
+      <MovieVideos id={id}/>
     </Suspense>
   </div>
 }
