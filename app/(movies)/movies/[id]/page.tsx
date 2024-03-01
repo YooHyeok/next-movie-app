@@ -1,5 +1,5 @@
 import { Suspense, lazy } from "react"
-import { API_URL } from "../../../(home)/page"
+// import { API_URL } from "../../../(home)/page"
 
 const MovieVideos = lazy(() => import('../../../../components/movie-videos'));
 import MovieInfo, {getMovie} from "../../../../components/movie-info"
