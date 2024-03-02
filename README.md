@@ -102,18 +102,18 @@ NextJS가 우선 Server에서 HTML에서 Rendering한다는 것이다.
 이는 적어도 최초 Application의 UI빌드에서는 Javascript에 의존하지 않을것이다.     
 
 ### *`Hydration`*
-Hydration은 단순 HTML을 React Application으로 초기화하는 작업이다.
-예를들어 sources의 Javascript를 비활성화 한 뒤 anchor태그에 감싼 텍스트를 클릭한다면,		
-hard refresh 방식으로 페이지가 새로고침되어 전환된다.		
-그러나, Javascript를 활성화 한다면 새로고침 없이 아주 빠르게 출력 내용이 바뀐다.		
+Hydration은 단순 HTML을 React Application으로 초기화하는 작업이다.    
+예를들어 sources의 Javascript를 비활성화 한 뒤 anchor태그에 감싼 텍스트를 클릭한다면,   
+hard refresh 방식으로 페이지가 새로고침되어 전환된다.   
+그러나, Javascript를 활성화 한다면 새로고침 없이 아주 빠르게 출력 내용이 바뀐다.    
 이것을 Hydration이라고 부른다.		
 
-React가 hydrated되면 anchors의 묶음이였다가 React Component로 변환된다.		
-페이지 전체를 reload하지 않고 빠르게 navigate 할 수 있게 된다.		
-Link component는 CSR Navigation을 수행하고 있다.		
-이로인해 동작속도가 매우 빠르며 새로고침되지 않아 보인다.		
-페이지에 도달하면 UI를 가지고 있는 dummyHtml에 NextJS 프레임워크에 의해 React가 로드되고 Components가 로드되는 등, 		
-모든것이 초기화 됨으로써 Application이 Interactive한 React App이 된다.		
+React가 hydrated되면 anchors의 묶음이였다가 React Component로 변환된다.		  
+페이지 전체를 reload하지 않고 빠르게 navigate 할 수 있게 된다.    
+Link component는 CSR Navigation을 수행하고 있다.    
+이로인해 동작속도가 매우 빠르며 새로고침되지 않아 보인다.   
+페이지에 도달하면 UI를 가지고 있는 dummyHtml에 NextJS 프레임워크에 의해 React가 로드되고 Components가 로드되는 등,
+모든것이 초기화 됨으로써 Application이 Interactive한 React App이 된다.    
 특정 URL로 요청이 들어오면 React Comonent가 아닌 dummy HTML로 사용자에게 출력함과 동시에, NextJS가 아주 빠른 속도로 React가 초기화되는 것이다.     
 
 state를 사용한다고 가정했을 때, Hydration이 미처 적용되지 않았다면, state조작이 불가능해진다.     
@@ -171,19 +171,19 @@ hydrate작업이 필요하지 않은 컴포넌트의 경우 사용자가 Javascr
     "license": "MIT",
     ```
 
-터미널에 `npm run dev`라는 명령을 입력하면 next dev명령을 실행하여 nextjs 프레임워크를 실행하고, app/page 라는 파일을 찾게될 것이다.      
-따라서 명령어 실행 전 app 디렉토리를 생성하고 그 하위경로에 page.tsx 파일을 생성한다.
+터미널에 `npm run dev`라는 명령을 입력하면 next dev명령을 실행하여 nextjs 프레임워크를 실행하고, app/page 라는 파일을 찾게될 것이다.    
+따라서 명령어 실행 전 app 디렉토리를 생성하고 그 하위경로에 page.tsx 파일을 생성한다.   
 
-`npm run dev` 명령 실행시 Typescript를 자동으로 설치해준다.    
-또한 동일한 경로에 root layout역할을 해주는 layout.tsx 컴포넌트 파일이 생성된다.
+`npm run dev` 명령 실행시 Typescript를 자동으로 설치해준다.   
+또한 동일한 경로에 root layout역할을 해주는 layout.tsx 컴포넌트 파일이 생성된다.    
 <br/>
 
 # *NextJS 라우팅 (파일시스템 기반)*
-NextJS는 폴더를 사용하여 경로를 정의하는 파일시스템 기반 라우터를 사용한다.      
-각 폴더는 URL 세그먼트에 매핑되는 경로 세그먼트를 나타낸다.    
+NextJS는 폴더를 사용하여 경로를 정의하는 파일시스템 기반 라우터를 사용한다.   
+각 폴더는 URL 세그먼트에 매핑되는 경로 세그먼트를 나타낸다.   
 중첩된 경로를 만들기 위해서는 폴더를 서로 중첩하면 된다.    
-단 라우팅할 경로에는 `page.tsx`라는 출력할 내용이 선언된 컴포넌트가 존재해야한다.
-만약 중첩경로에 page.tsx파일이 존재하지 않는다면, 단순히 중첩 경로로서만 인정된다.
+단 라우팅할 경로에는 `page.tsx`라는 출력할 내용이 선언된 컴포넌트가 존재해야한다.   
+만약 중첩경로에 page.tsx파일이 존재하지 않는다면, 단순히 중첩 경로로서만 인정된다.  
 예를들어 /about-us/company/sales 경로가 존재하고
 about-us와 sales 두 디렉토리에만 page.tsx가 존재하고 company 디렉토리에는 page.tsx가 존재하지 않는다면
 
@@ -383,7 +383,7 @@ export const metadata: Metadata = {
 
 # *usePathname*
 
-현재 URL의 pathname을 읽을 수 있게 해주는 클라이언트 컴포넌트 훅이다.
+현재 URL의 pathname을 읽을 수 있게 해주는 클라이언트 컴포넌트 훅이다.   
 해당 훅을 사용하는 컴포넌트의 최 상단에는 "use client" 라는 문자열을 입력해 줘야 한다.
 ```ts
 import Navigation from "../components/navigation";
@@ -409,9 +409,9 @@ export default function Navigation() {
 <br/>
 
 # *Loading 컴포넌트*
-파일명 loading.tsx로 프레임워크가 데이터 패치중 패치가 완료되기 전까지 자동으로 해당 컴포넌트를 호출하여 임시 렌더링한다.
-데이터를 패치하는 서버컴포넌트를 async로 선언해야한다.
-데이터 패치가 완료되면 async로 선언된 해당 컴포넌트를 렌더링 후 화면에 출력한다.
+파일명 loading.tsx로 프레임워크가 데이터 패치중 패치가 완료되기 전까지 자동으로 해당 컴포넌트를 호출하여 임시 렌더링한다.   
+데이터를 패치하는 서버컴포넌트를 async로 선언해야한다.    
+데이터 패치가 완료되면 async로 선언된 해당 컴포넌트를 렌더링 후 화면에 출력한다.    
 
 ```ts
 import Link from "next/link"
@@ -533,11 +533,11 @@ export default async function MovieVideos({id}:{id:string}) {
 <br/>
 
 # *Error 컴포넌트 - error.tsx*
- 디렉토리 동일 레벨 page.tsx에서 사용하는 어떠한 컴포넌트에서 발생하는 에러에 대한 출력을 대신한다.
- 페이지가 작동하지 않을 수는 있겠지만, 어플리케이션 전체적으로는 정상적으로 작동한다.
- Error component에는 "use client"가 필수이다.
+ 디렉토리 동일 레벨 page.tsx에서 사용하는 어떠한 컴포넌트에서 발생하는 에러에 대한 출력을 대신한다.   
+ 페이지가 작동하지 않을 수는 있겠지만, 어플리케이션 전체적으로는 정상적으로 작동한다.   
+ Error component에는 "use client"가 필수이다.   
 
-단, 에러가 발생할 컴포넌트의 라우팅 경로와 일치하는 디렉토리 경로에 error.tsx라는 이름으로 저장해야한다.
+단, 에러가 발생할 컴포넌트의 라우팅 경로와 일치하는 디렉토리 경로에 error.tsx라는 이름으로 저장해야한다.    
 
 **[`error.tsx`]**
 ```ts
@@ -548,9 +548,9 @@ export default function ErrorOMG() {
 ```
 
 # *Dynamic Metadata - generateMetadata()*
-metadata를 동적으로 변경할 수 있게 도와주는 함수이다.
-프레임워크가 generateMetadata()라는 이름의 함수를 호출한다.
-적용할 서버 컴포넌트에 선언하여 사용하므로 해당 컴포넌트가 받는 파라미터를 동일하게 받을 수 있다.
+metadata를 동적으로 변경할 수 있게 도와주는 함수이다.   
+프레임워크가 generateMetadata()라는 이름의 함수를 호출한다.   
+적용할 서버 컴포넌트에 선언하여 사용하므로 해당 컴포넌트가 받는 파라미터를 동일하게 받을 수 있다.   
 
 ```ts
 export async function generateMetadata({params:{id}}: Iparams) {
@@ -583,5 +583,5 @@ export default async function MovieDetail({params:{id}}: Iparams) {
 > npm run build
 ```
 
-오류, 충돌이 없을 경우 vercel에 project를 import한 뒤 deploy한다.
+오류, 충돌이 없을 경우 vercel에 project를 import한 뒤 deploy한다.   
 vercel에 배포한 이후 push되는 모든 commit내역이 배포에 반영된다!
