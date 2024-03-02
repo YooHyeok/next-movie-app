@@ -1,3 +1,5 @@
+# *☞*<a href="https://next14-movies-ten.vercel.app/" > Next14 시네마 바로가기! </a>*☜* 
+
 # *NEXTJS 란?*
 
 React와의 차이는 React는 라이브러리, NextJS는 프레임워크이다.
@@ -560,3 +562,26 @@ export default async function MovieDetail({params:{id}}: Iparams) {
 }
 ```
 프레임워크의 기능이므로 export해줘야 프레임워크가 해당 함수를 호출할 수 있게 된다.
+
+<br>
+
+# Link - prefetch
+컴포넌트가 사용자의 뷰포트에 들어갈때 (초기, 스크롤) 자동으로 fetch한다.
+
+<br>
+
+# 배포 (vercel)
+
+```json
+"scripts" : {
+  "build": "next build",
+  "start": "next start"
+}
+```
+
+```bash
+> npm run build
+```
+
+오류, 충돌이 없을 경우 vercel에 project를 import한 뒤 deploy한다.
+vercel에 배포한 이후 push되는 모든 commit내역이 배포에 반영된다!
